@@ -276,7 +276,7 @@ BEGIN
   IF @Error <> 0 GOTO Logging
 
   ----------------------------------------------------------------------------------------------------
-  --// Execute backup commands                                                                    //--
+  --// Execute ShrinkLog commands                                                                    //--
   ----------------------------------------------------------------------------------------------------
 
   WHILE EXISTS (SELECT * FROM @tmpDatabases WHERE Completed = 0)
