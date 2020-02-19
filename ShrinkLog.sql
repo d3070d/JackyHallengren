@@ -229,7 +229,7 @@ BEGIN
   ----------------------------------------------------------------------------------------------------
   --// Check database names                                                                       //--
   ----------------------------------------------------------------------------------------------------
-
+  --Il a du voir des choses tordues, comme une base nommée ":"
   SET @ErrorMessage = ''
   SELECT @ErrorMessage = @ErrorMessage + QUOTENAME(DatabaseName) + ', '
   FROM @tmpDatabases
