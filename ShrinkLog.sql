@@ -154,12 +154,12 @@ BEGIN
 
   WITH Databases1 (StartPosition, EndPosition, DatabaseItem) AS
   (
-  SELECT 1 AS StartPosition,
+  SELECT cast(1 as bigint) AS StartPosition,
          ISNULL(NULLIF(CHARINDEX(',', @Databases, 1), 0), LEN(@Databases) + 1) AS EndPosition,
          SUBSTRING(@Databases, 1, ISNULL(NULLIF(CHARINDEX(',', @Databases, 1), 0), LEN(@Databases) + 1) - 1) AS DatabaseItem
   WHERE @Databases IS NOT NULL
   UNION ALL
-  SELECT CAST(EndPosition AS int) + 1 AS StartPosition,
+  SELECT EndPosition + 1 AS StartPosition,
          ISNULL(NULLIF(CHARINDEX(',', @Databases, EndPosition + 1), 0), LEN(@Databases) + 1) AS EndPosition,
          SUBSTRING(@Databases, EndPosition + 1, ISNULL(NULLIF(CHARINDEX(',', @Databases, EndPosition + 1), 0), LEN(@Databases) + 1) - EndPosition - 1) AS DatabaseItem
   FROM Databases1
