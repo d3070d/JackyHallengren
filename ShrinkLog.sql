@@ -78,7 +78,7 @@ IF OBJECT_ID('tempdb..#Config') IS NOT NULL DROP TABLE #Config
 CREATE TABLE #Config ([Name] nvarchar(max),
                       [Value] nvarchar(max))
 
-IF @CreateJobs = 'Y' AND @OutputFileDirectory IS NULL AND SERVERPROPERTY('EngineEdition') <> 4 AND @Version < 12
+IF @CreateJobs = 'Y' AND @OutputFileDirectory IS NULL AND SERVERPROPERTY('EngineEdition') <> 4 AND @Version < @MaxVersion
 BEGIN
   IF @Version >= 11
   BEGIN
