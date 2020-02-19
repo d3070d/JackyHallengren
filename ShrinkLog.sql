@@ -55,11 +55,13 @@ DECLARE @OutputFileDirectory nvarchar(max)
 DECLARE @LogToTable nvarchar(max)
 DECLARE @Version numeric(18,10)
 DECLARE @Error int
+DECLARE @MaxVersion int
 
 SET @CreateJobs          = 'Y'          -- Specify whether jobs should be created.
 SET @BackupDirectory     = N'D:\MSSQL'	-- Specify the backup root directory.
 SET @OutputFileDirectory = NULL         -- Specify the output file directory. If no directory is specified, then the SQL Server error log directory is used.
 SET @LogToTable          = 'Y'          -- Log commands to a table.
+SET @MaxVersion			 = 15
 
 SET @Error = 0
 
