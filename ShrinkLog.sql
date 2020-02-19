@@ -116,7 +116,7 @@ VALUES('Error', CAST(@Error AS nvarchar))
 
 IF OBJECT_ID('[dbo].[ShrinkLog]') IS NOT NULL DROP PROCEDURE [dbo].[ShrinkLog]
 
-/****** Objet :  StoredProcedure [dbo].[sp_dba_shrinkLog]    Date de génération du script : 07/06/2012 11:15:12 ******/
+/****** Objet :  StoredProcedure [dbo].[sp_dba_shrinkLog] ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
