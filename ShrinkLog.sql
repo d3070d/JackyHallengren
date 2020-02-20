@@ -327,26 +327,23 @@ BEGIN
 	  declare @count int
 	  declare @iRow int
   
-	  CREATE TABLE #tbl (
-		RowID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-		name varchar(max),
-		used int
-	  )
-  
-      exec('use ['+@CurrentDatabase+']; insert #tbl
-		select
-			name,
-			case
-				when cast((cntr_value/1024) as int) = 0 then 1
-				else cast((cntr_value/1024) as int)
-			end as used
-		from
-			['+@CurrentDatabase+'].dbo.sysfiles s,
-			master.sys.dm_os_performance_counters m
-		where
-			s.groupid=0
-			and m.counter_name=''Log File(s) Used Size (KB)''
-			and m.instance_name='''+@CurrentDatabase+'''')
+	  DECLARE @LOGFILES TABLE (
+			RowID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+			name VARCHAR(max),
+			used INT
+		)
+
+		INSERT INTO @LOGFILES
+		SELECT 
+			name
+			,CASE
+				WHEN CAST((cntr_value/1024) AS INT) = 0 THEN 1
+				ELSE CAST((cntr_value/1024) AS INT)
+			END AS used
+		FROM SYS.MASTER_FILES
+		INNER JOIN  SYS.DM_OS_PERFORMANCE_COUNTERS 
+			ON DB_NAME(SYS.MASTER_FILES.database_id)=SYS.DM_OS_PERFORMANCE_COUNTERS.instance_name
+		WHERE type_desc='LOG' AND counter_name='Log File(s) Used Size (KB)'
       
 	  SET @count = @@ROWCOUNT
 	  SET @iRow = 1
