@@ -328,14 +328,15 @@ BEGIN
 	  declare @iRow int
   
 	  DECLARE @LOGFILES TABLE (
-			RowID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+			RowID INT NOT NULL,
 			name VARCHAR(max),
 			used INT
 		)
 
 		INSERT INTO @LOGFILES
 		SELECT 
-			name
+			Row_Number() Over ( Order By name )
+			,name
 			,CASE
 				WHEN CAST((cntr_value/1024) AS INT) = 0 THEN 1
 				ELSE CAST((cntr_value/1024) AS INT)
