@@ -360,8 +360,6 @@ BEGIN
 	      SET @iRow = @iRow + 1
 	  END
 	
-	  DROP TABLE #tbl
-	
     END
 
     -- Update that the database is completed
