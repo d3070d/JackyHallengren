@@ -344,6 +344,7 @@ BEGIN
 		INNER JOIN  SYS.DM_OS_PERFORMANCE_COUNTERS 
 			ON DB_NAME(SYS.MASTER_FILES.database_id)=SYS.DM_OS_PERFORMANCE_COUNTERS.instance_name
 		WHERE type_desc='LOG' AND counter_name='Log File(s) Used Size (KB)'
+			and DB_NAME(SYS.MASTER_FILES.database_id)=@CurrentDatabase
       
 	  SET @count = @@ROWCOUNT
 	  SET @iRow = 1
@@ -367,6 +368,9 @@ BEGIN
     UPDATE @tmpDatabases
     SET Completed = 1
     WHERE ID = @CurrentID
+
+	-- Clean @LOGFILES
+	delete from @LOGFILES
 
     -- Clear variables
     SET @CurrentID = NULL
