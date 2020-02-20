@@ -353,8 +353,8 @@ BEGIN
 	  WHILE @iRow <= @count 
 	  BEGIN
 		  SELECT @varlog = name, @shrinksize = used FROM @LOGFILES WHERE RowID = @iRow
-			SELECT @CurrentCommand01 = 'USE ['+ @CurrentDatabase+'];DBCC SHRINKFILE(''' + @varlog + ''','+ @shrinksize +')'
-			EXECUTE @CurrentCommandOutput01 = [dbo].[CommandExecute] @Command = @CurrentCommand01, @CommandType = 'ShrinkLog', @Mode = 1, @DatabaseName = @CurrentDatabase, @LogToTable = @LogToTable, @Execute = @Execute
+			SELECT @CurrentCommand01 = 'DBCC SHRINKFILE(''' + @varlog + ''','+ @shrinksize +')'
+			EXECUTE @CurrentCommandOutput01 = [dbo].[CommandExecute] @DatabaseContext=@CurrentDatabase, @Command = @CurrentCommand01, @CommandType = 'ShrinkLog', @Mode = 1, @DatabaseName = @CurrentDatabase, @LogToTable = @LogToTable, @Execute = @Execute
 			SET @Error = @@ERROR
 			IF @Error <> 0 SET @CurrentCommandOutput01 = @Error
 
